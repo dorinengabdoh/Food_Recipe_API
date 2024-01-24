@@ -10,9 +10,7 @@ router.get('/:idRec', function (req, res, next) {
   console.log(req.params.id)
   console.log(res.statusCode)
   const query = `select * from recipe where idRec=${idRec}`;
-  // const mesureQuery= `select mesurement from recipe where idRec=${idRec}`
-  // const arrMesure = Object.values(mesureQuery)
-
+ 
   connection.query(query, (err, data) => {
     if (err) {
       if (err.message === "not found")
@@ -33,57 +31,57 @@ router.get('/:idRec', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-  const { nameRec, instruction, mesurement,imageRec, idCat } = req.body;
+  const { nameRec, instruction, mesurement,imageRec } = req.body;
   console.log(req.body);
-  const createQuery = `insert into bicycles (brand, color) value("${brand}","${color}")`
+  const createQuery = `insert into recipe (nameRec, instruction,mesurement,imageRec,idCat) values ("${nameRec}","${instruction}","${mesurement}","${imageRec}",${idCat})`
   connection.query(createQuery, (err, data) => {
     if (err) next(err)
-    else res.status(201).send({ id: data.insertId })
+    else res.status(201).send({ id: data.insertId})
   })
 })
 
-// router.post('/:id/update', function (req, res, next) {
-//   const id = req.params.id;
-//   console.log(req.body);
-//   const createQuery = `update bicycles set immatriculation = "000000pt" where id =${id}`
-//   connection.query(createQuery, (err, data) => {
-//     if (err) next(err)
-//     else res.status(201).send(data)
-//   })
-// })
+router.post('/:idRec/update', function (req, res, next) {
+  const idRec = req.params.idRec;
+  console.log(req.body);
+  const createQuery = `update recipe set mesurement = "2kg, 10p, 2verres" where idRec=${idRec}`;
+  connection.query(createQuery, (err, data) => {
+    if (err) next(err)
+    else res.status(201).send(data)
+  })
+})
 
 
-// router.put('/:id', function (req, res, next) {
-//   const createQuery = `alter table bicycles add column (immatriculation varchar(20), weight int)`;
-//   connection.query(createQuery, (err, data) => {
-//     if (err) {
-//       console.log(err);
-//       if (err.message === "not found") next()
-//       else {
-//         next()
-//       }
-//     }
-//     else res.send(data)
-//   })
-// })
+router.put('/:id', function (req, res, next) {
+  const createQuery = `alter table recipe add column (areaRec varchar(20))`;
+  connection.query(createQuery, (err, data) => {
+    if (err) {
+      console.log(err);
+      if (err.message === "not found") next();
+      else {
+        next()
+      }
+    }
+    else res.send(data)
+  })
+})
 
 
 
-// router.delete('/:id', function (req, res, next) {
-//   const id = req.params.id;
-//   console.log(req.body);
-//   const createQuery = `delete  from bicycles where id =${id};`
-//   connection.query(createQuery, (err, data) => {
-//     if (err) {
-//       console.log(err);
-//       if (err.message === "not found") next()
-//       else {
-//         next()
-//       }
-//     }
-//     else res.send(data)
-//   })
-// })
+router.delete('/:idRec', function (req, res, next) {
+  const idRec = req.params.idRec;
+  console.log(req.body);
+  const createQuery = `delete  from recipe where idRec =${idRec};`
+  connection.query(createQuery, (err, data) => {
+    if (err) {
+      console.log(err);
+      if (err.message === "not found") next()
+      else {
+        next()
+      }
+    }
+    else res.send(data)
+  })
+})
 
 
 
