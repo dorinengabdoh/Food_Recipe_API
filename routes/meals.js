@@ -10,7 +10,8 @@ router.get('/:idRec', function (req, res, next) {
   console.log(req.params.id)
   console.log(res.statusCode)
   const query = `select * from recipe where idRec=${idRec}`;
- 
+
+
   connection.query(query, (err, data) => {
     if (err) {
       if (err.message === "not found")
