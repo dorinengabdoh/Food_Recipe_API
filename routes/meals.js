@@ -52,7 +52,7 @@ router.post('/:idRec/update', function (req, res, next) {
 })
 
 
-router.put('/:id', function (req, res, next) {
+router.put('/:id', function (req, next) {
   const createQuery = `alter table recipe add column (areaRec varchar(20))`;
   connection.query(createQuery, (err, data) => {
     if (err) {
