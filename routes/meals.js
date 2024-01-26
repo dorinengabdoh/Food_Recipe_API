@@ -52,7 +52,7 @@ router.post('/:idRec/update', function (req, res, next) {
 })
 
 
-router.put('/:id', function (req, next) {
+router.put('/:id', function (req, res, next) {
   const createQuery = `alter table recipe add column (areaRec varchar(20))`;
   connection.query(createQuery, (err, data) => {
     if (err) {
@@ -71,7 +71,7 @@ router.put('/:id', function (req, next) {
 router.delete('/:idRec', function (req, res, next) {
   const idRec = req.params.idRec;
   console.log(req.body);
-  const createQuery = `delete  from ingredient where idRec =${idRec};`
+  const createQuery = `delete  from recipe where idRec =${idRec};`
   connection.query(createQuery, (err, data) => {
     if (err) {
       console.log(err);
