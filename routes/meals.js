@@ -34,7 +34,7 @@ router.get('/:idRec', function (req, res, next) {
 router.post('/', function (req, res, next) {
   const { nameRec, instruction, mesurement,imageRec } = req.body;
   console.log(req.body);
-  const createQuery = `insert into recipe (nameRec, instruction,mesurement,imageRec,idCat) values ("${nameRec}","${instruction}","${mesurement}","${imageRec}",${idCat})`
+  const createQuery = `insert into Instruction (nameIngre,step,idRec) values ("laver les habits",1,"kilogramme")`
   connection.query(createQuery, (err, data) => {
     if (err) next(err)
     else res.status(201).send({ id: data.insertId})
@@ -51,9 +51,13 @@ router.post('/:idRec/update', function (req, res, next) {
   })
 })
 
+// SELECT    m.nameRec,   m.imageRec, m.areaRec,   c.nameCat AS category,   i.step,   i.nameInstru AS Instruction,   ing.nameIngre AS ingredient,
+// mi.quantity, mi.unit  FROM recipe m INNER JOIN category c ON m.idCat = c.idCat INNER JOIN Instruction i ON m.idRec = i.idRec INNER JOIN belongTo mi
+// ON m.idRec = mi.idRec INNER JOIN ingredient ing ON mi.idIngre = ing.idIngre WHERE m.idRec = 1;
+
 
 router.put('/:id', function (req, res, next) {
-  const createQuery = `alter table recipe add column (areaRec varchar(20))`;
+  const createQuery = `alter table belongTo drop column id`;
   connection.query(createQuery, (err, data) => {
     if (err) {
       console.log(err);
