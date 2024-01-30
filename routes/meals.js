@@ -33,61 +33,28 @@ router.post("/", function (req, res, next) {
     nameRec,
     imageRec,
     areaRec,
-    idCat
-  ) VALUES (
+    idCat,
+    ingredient_ids
+  )
+  VALUES (
     'Nom de la recette',
     'Description de la recette',
-    'cameroon',
-    1
-  );
-  INSERT INTO Instruction (
-    instruction,
-    step,
-    idRec
-  ) VALUES (
-    'instruction 1',
-    1,
-    1
-  ), (
-    'instruction 2',
-    2,
-    1
-  ), (
-    'instruction 3',
-    3,
-    1
-  );
-  
-  INSERT INTO ingredient (
-    nameIngre,
-  ) VALUES (
-    'Ingrédient 1',
-  ), (
-    'Ingrédient 2',
-  ), (
-    'Ingrédient 3',
-  );
-  
-  INSERT INTO belongTo (
-    idIngre,
-    idRec,
-    quantity,
-    unit
-  ) VALUES (
-    1,
-    1,
-    2,
-    'litre'
-  ), (
-    2,
-    2,
-    3,
-    'kg'
-  ), (
-    3,
-    3,
+    30,
+    60,
     4,
-    'g'
+    (
+      SELECT id
+      FROM category
+      WHERE name = 'Catégorie de la recette'
+    ),
+    (
+      SELECT
+        ingredient.id
+      FROM ingredient
+      JOIN category
+      ON ingredient.category_id = category.id
+      WHERE category.name = 'Catégorie de la recette'
+    )
   );`;
   connection.query(createQuery, (err, data) => {
     if (err) next(err);
