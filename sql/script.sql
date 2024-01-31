@@ -10,7 +10,7 @@ CREATE TABLE recipe (
   idCat INT,
   PRIMARY KEY (idRec),
   FOREIGN KEY (idCat) REFERENCES category (idCat) ON DELETE CASCADE ON UPDATE CASCADE
-);
+)engine=InnoDB;
 
 CREATE TABLE ingredient (
   idIngre INT NOT NULL AUTO_INCREMENT,
@@ -25,13 +25,13 @@ CREATE TABLE Instruction (
   idRec INT,
   PRIMARY KEY (idInstru),
   FOREIGN KEY (idRec) REFERENCES recipe (idRec) ON DELETE CASCADE ON UPDATE CASCADE
-);
+)engine=InnoDB;
 
 CREATE TABLE category (
   idCat INT NOT NULL AUTO_INCREMENT,
   nameCat VARCHAR(255),
   PRIMARY KEY (idCat)
-);
+)engine=InnoDB;
 
 CREATE TABLE belongTo (
   idRec INT,
@@ -41,7 +41,7 @@ CREATE TABLE belongTo (
   PRIMARY KEY (idRec, idIngre),
   FOREIGN KEY (idRec) REFERENCES recipe (idRec) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (idIngre) REFERENCES ingredient (idIngre) ON DELETE CASCADE ON UPDATE CASCADE
-);
+)engine=InnoDB;
 
 -- initialisation
 
@@ -51,17 +51,17 @@ VALUES
   ('Dessert'),
   ('Entrée'),
   ('Boisson');
-INSERT INTO ingredient (nameIngre, idCat)
+INSERT INTO ingredient (nameIngre)
 VALUES
-  ('Poulet', 1),
-  ('Riz', 1),
-  ('Légumes', 1),
-  ('Fruits', 2),
-  ('Chocolat', 2),
-  ('Farine', 3),
-  ('Oeufs', 3),
-  ('Lait', 4),
-  ('Jus de fruit', 4);
+  ('Poulet'),
+  ('Riz'),
+  ('Légumes'),
+  ('Fruits'),
+  ('Chocolat'),
+  ('Farine'),
+  ('Oeufs'),
+  ('Lait'),
+  ('Jus de fruit');
 INSERT INTO recipe (nameRec, imageRec, areaRec,idCat)
 VALUES
   ('Poulet au riz', 'https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg', 'cameroun',  1),
@@ -75,11 +75,11 @@ VALUES
   (3, 'Faire revenir les légumes.', 1),
   (4, 'Mélanger le poulet, le riz et les légumes.', 1),
   (5, 'Faire fondre le chocolat.', 2),
-  (6, 'Fouetter les oeufs et le sucre.'),
+  (6, 'Fouetter les oeufs et le sucre.', 2),
   (7, 'Mélanger le chocolat fondu aux oeufs et au sucre.', 2),
   (8, 'Verser la pâte dans un moule à gâteau.', 2),
   (9, 'Cuire au four.', 2),
   (10, 'Mélanger la farine, les oeufs et le lait.', 3),
   (11, 'Faire chauffer une poêle à feu moyen.', 3),
   (12, 'Verser une louche de pâte dans la poêle.', 3),
-  (13, 'Cuire la crêpe des deux côtés.', 3),  
+  (13, 'Cuire la crêpe des deux côtés.', 3);  
