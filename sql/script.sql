@@ -20,10 +20,10 @@ CREATE TABLE ingredient (
 
 CREATE TABLE Instruction (
   idInstru INT NOT NULL AUTO_INCREMENT,
-  nameInstru VARCHAR(255),
-  step INT,
-  idRec INT,
-  PRIMARY KEY (idInstru),
+  nameInstru JSON NOT NULL,
+  step JSON NOT NULL,
+  idRec INT NOT NULL,
+  PRIMARY KEY (idInstru)
   FOREIGN KEY (idRec) REFERENCES recipe (idRec) ON DELETE CASCADE ON UPDATE CASCADE
 )engine=InnoDB;
 
